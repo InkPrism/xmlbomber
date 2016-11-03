@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sys
 i = 0
 j = i - 1
