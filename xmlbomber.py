@@ -38,7 +38,7 @@ def yamlbomb(ents, refs, content):
 		sys.stdout.write(str(i) + ': &' + str(i) +' [')
 		k = []
 		for _ in range(refs):
-			k.append(str(j))
+			k.append('*' + str(j))
 		sys.stdout.write(", ".join(k))
 		sys.stdout.write(']\n')
 	k = []
